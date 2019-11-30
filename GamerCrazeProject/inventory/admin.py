@@ -11,5 +11,4 @@ class MTGCardAdmin(admin.ModelAdmin):
 
 @admin.register(MTGSingle)
 class MTGSingleAdmin(admin.ModelAdmin):
-
-    list_display = ('card_name', 'set', 'condition', 'language', 'price')
+    list_display = ('card_name', 'set', 'condition', 'language', 'qty', 'price')
