@@ -3,39 +3,40 @@
 
 
 {% block content %}
-  <h1>Card List</h1>
+  <h3>Inventory List</h3>
   {% if mtgcard_list %}
   <ul>
     {% for mtgcard in mtgcard_list %}
     <section>
-        <h5>{{ mtgcard.card_name }} ({{mtgcard.set}})</h5>
+        <h5>{{ mtgcard.card_name }} <font size="1">({{mtgcard.set}})</font></h5>
+        <hr>
     </section>
     <div style="width: 100%; overflow: hidden;">
         <div style="width: 100px; float: left;">
-            <img src="{% static '{{ mtgcard.image.url }}' }" alt="hello">
+            <img src="{{ mtgcard.image.url }}" alt="{{mtgcard.SKU_ID}}">
         </div>
         <div style="margin-left: 100px;">
             <table style="width:100%">
                 <tr>
-                    <th>Language</th>
-                    <th>Condition</th>
-                    <th>Qty.</th>
-                    <th>Price</th>
+                    <th style="width:100px">Language</th>
+                    <th style="width:100px">Condition</th>
+                    <th style="width:50px">Qty.</th>
+                    <th style="width:50px">Price</th>
                 </tr>
                 {% for single in mtgcard|mtg_singles %}
                 <tr>
                     <td>{{ single.language }}</td>
                     <td>{{ single.condition }}</td>
                     <td>{{ single.qty }}</td>
-                    <td>{{ single.price }}</td>
+                    <td>$ {{ single.price }}</td>
                 </tr>
                 <hline>
                 {% endfor %}
             </table>
+            <button type="button" name="manage">Manage</button>
         </div>
     </div>
-
-
+    <hr>
     {% endfor %}
   </ul>
   {% endif %}
