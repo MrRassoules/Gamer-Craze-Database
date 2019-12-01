@@ -105,7 +105,7 @@ class MTGCard(models.Model):
     image = models.ImageField(upload_to = 'img')
 
     class Meta:
-        ordering = ['number']
+        ordering = ['card_name']
 
     def __str__(self):
         """String for representing the Model object."""
@@ -163,6 +163,7 @@ class MTGSingle(models.Model):
 
     class Meta:
         unique_together = (('SKU_ID', 'condition', 'language'),)
+        ordering = ['language','condition']
 
     def card_name(self):
         return self.SKU_ID.card_name

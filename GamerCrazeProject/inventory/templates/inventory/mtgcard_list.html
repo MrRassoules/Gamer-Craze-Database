@@ -1,30 +1,41 @@
 {% extends "base_generic.html" %}
 {% load inventory_template_tags %}
 
+
 {% block content %}
   <h1>Card List</h1>
   {% if mtgcard_list %}
   <ul>
     {% for mtgcard in mtgcard_list %}
-    <h4>{{ mtgcard.card_name }}</h4>
-    <p>{{mtgcard.set}}</p>
-    <img src="{% static '{{ mtgcard.image.url }}' }" alt="hello">
-    <table style="width:100%">
-        <tr>
-            <th>Language</th>
-            <th>Condition</th>
-            <th>Qty.</th>
-            <th>Price</th>
-        </tr>
-        {% for single in mtgcard|mtg_singles %}
-        <tr>
-            <td>{{ single.language }}</td>
-            <td>{{ single.condition }}</td>
-            <td>{{ single.qty }}</td>
-            <td>{{ single.price }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+    <section>
+        <h5>{{ mtgcard.card_name }} ({{mtgcard.set}})</h5>
+    </section>
+    <div style="width: 100%; overflow: hidden;">
+        <div style="width: 100px; float: left;">
+            <img src="{% static '{{ mtgcard.image.url }}' }" alt="hello">
+        </div>
+        <div style="margin-left: 100px;">
+            <table style="width:100%">
+                <tr>
+                    <th>Language</th>
+                    <th>Condition</th>
+                    <th>Qty.</th>
+                    <th>Price</th>
+                </tr>
+                {% for single in mtgcard|mtg_singles %}
+                <tr>
+                    <td>{{ single.language }}</td>
+                    <td>{{ single.condition }}</td>
+                    <td>{{ single.qty }}</td>
+                    <td>{{ single.price }}</td>
+                </tr>
+                <hline>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+
     {% endfor %}
   </ul>
   {% endif %}
