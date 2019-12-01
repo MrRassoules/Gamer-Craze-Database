@@ -19,4 +19,5 @@ def index(request):
 class MTGCardListView(generic.ListView):
     model = MTGCard
 
-    
+class MTGCardDetailView(generic.DetailView):
+    model = MTGCard
