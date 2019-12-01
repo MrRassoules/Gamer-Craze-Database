@@ -8,9 +8,7 @@ def validate_positive(value):
             _('%(value)s is not a positive number'),
             params={'value': value},
         )
-
-
-
+        
 
 class MTGSet(models.Model):
     # primary_key
@@ -28,7 +26,6 @@ class MTGSet(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return self.set_name
-
 
 
 class MTGCard(models.Model):
@@ -52,6 +49,14 @@ class MTGCard(models.Model):
         ('G', 'Green'),
     )
 
+    RARITY_CHOICES = (
+        ('B', 'Basic'),
+        ('C', 'Common'),
+        ('U', 'Uncommon'),
+        ('R', 'Rare'),
+        ('M', 'Mythic Rare')
+    )
+
 
     # First 3: set expansion code, last 3: card number
     SKU_ID = models.CharField(
@@ -68,8 +73,12 @@ class MTGCard(models.Model):
         on_delete=models.SET_NULL,
         null=True)
 
+    number = models.PositiveIntegerField()
 
-    number = models.IntegerField()
+    rarity = models.CharField(
+        max_length = 1,
+        choices = RARITY_CHOICES,
+    )
 
     color = models.CharField(
         max_length = 1,
@@ -81,10 +90,16 @@ class MTGCard(models.Model):
         choices = CARD_TYPE_CHOICES,
     )
 
-    converted_cost = models.IntegerField()
+    card_subtype = models.CharField(
+        max_length = 20,
+        blank = True,
+    )
+
+    converted_cost = models.PositiveIntegerField()
 
     rule_text = models.TextField(
         max_length = 400,
+        blank = True,
     )
 
     image = models.ImageField()
@@ -95,7 +110,6 @@ class MTGCard(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return self.card_name
-
 
 
 class MTGSingle(models.Model):
@@ -158,4 +172,45 @@ class MTGSingle(models.Model):
 
     def __str__(self):
         """String for representing the Model object."""
-        return self.SKU_ID.SKU_ID
+        return self.SKU_ID.SKU_ID + self.condition + self.language
+
+
+class Order(models.Model):
+
+    STATUS_CHOICES = (
+        ('H', 'On Hold'),
+        ('C', 'Completed'),
+    )
+
+    order_id = models.PositiveIntegerField(
+        primary_key=True
+    )
+
+    customer_id = models.CharField(
+        max_length = 20
+    )
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return str(self.order_id)
+
+
+class OrderItem(models.Model):
+
+    order_id = models.ForeignKey(
+        'Order',
+        on_delete=models.SET_NULL,
+        null=True)
+
+    product = models.ForeignKey(
+        'MTGSingle',
+        on_delete=models.SET_NULL,
+        null=True)
+
+    qty = models.PositiveIntegerField(
+        default = 0,
+    )
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return str(self.pk)
