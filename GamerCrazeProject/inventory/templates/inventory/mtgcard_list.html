@@ -1,16 +1,31 @@
 {% extends "base_generic.html" %}
+{% load inventory_template_tags %}
 
 {% block content %}
-  <h1>Book List</h1>
+  <h1>Card List</h1>
   {% if mtgcard_list %}
   <ul>
     {% for mtgcard in mtgcard_list %}
-        <h1>{{ mtgcard.card_name }}</h1>
-        {{mtgcard.set}}
-        <img src="{{ mtgcard.image.url }}" alt="{{ mtgcard.card_name }}">
+    <h4>{{ mtgcard.card_name }}</h4>
+    <p>{{mtgcard.set}}</p>
+    <img src="{% static '{{ mtgcard.image.url }}' }" alt="hello">
+    <table style="width:100%">
+        <tr>
+            <th>Language</th>
+            <th>Condition</th>
+            <th>Qty.</th>
+            <th>Price</th>
+        </tr>
+        {% for single in mtgcard|mtg_singles %}
+        <tr>
+            <td>{{ single.language }}</td>
+            <td>{{ single.condition }}</td>
+            <td>{{ single.qty }}</td>
+            <td>{{ single.price }}</td>
+        </tr>
+        {% endfor %}
+    </table>
     {% endfor %}
   </ul>
-  {% else %}
-    <p>There are no books in the library.</p>
   {% endif %}
 {% endblock %}

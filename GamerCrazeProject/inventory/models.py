@@ -102,7 +102,7 @@ class MTGCard(models.Model):
         blank = True,
     )
 
-    image = models.ImageField(upload_to = 'static/images')
+    image = models.ImageField(upload_to = 'img')
 
     class Meta:
         ordering = ['number']
