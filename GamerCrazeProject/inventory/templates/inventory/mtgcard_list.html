@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Book List</h1>
+  {% if mtgcard_list %}
+  <ul>
+    {% for mtgcard in mtgcard_list %}
+        <h1>{{ mtgcard.card_name }}</h1>
+        {{mtgcard.set}}
+        <img src="{{ mtgcard.image.url }}" alt="{{ mtgcard.card_name }}">
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no books in the library.</p>
+  {% endif %}
+{% endblock %}

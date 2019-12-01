@@ -8,7 +8,7 @@ def validate_positive(value):
             _('%(value)s is not a positive number'),
             params={'value': value},
         )
-        
+
 
 class MTGSet(models.Model):
     # primary_key
@@ -102,7 +102,7 @@ class MTGCard(models.Model):
         blank = True,
     )
 
-    image = models.ImageField()
+    image = models.ImageField(upload_to = 'static/images')
 
     class Meta:
         ordering = ['number']
