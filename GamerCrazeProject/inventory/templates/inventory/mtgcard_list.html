@@ -1,6 +1,6 @@
 {% extends "base_generic.html" %}
 {% load inventory_template_tags %}
-
+{% load static %}
 
 {% block content %}
   <h3>Inventory List</h3>
@@ -13,7 +13,7 @@
     </section>
     <div style="width: 100%; overflow: hidden;">
         <div style="width: 100px; float: left;">
-            <img src="{{ mtgcard.image.url }}" alt="{{mtgcard.SKU_ID}}">
+            <img src="{% static 'inventory/Acclaimed_Contender.png' %}" alt="{{mtgcard.SKU_ID}}">
         </div>
         <div style="margin-left: 100px;">
             <table style="width:100%">
