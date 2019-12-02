@@ -13,7 +13,7 @@
     </section>
     <div style="width: 100%; overflow: hidden;">
         <div style="width: 100px; float: left;">
-            <img src="{% static 'inventory/Acclaimed_Contender.png' %}" alt="{{mtgcard.SKU_ID}}">
+<!--             <img src="{% static 'inventory/Acclaimed_Contender.png' %}" alt="{{mtgcard.SKU_ID}}"> -->
         </div>
         <div style="margin-left: 100px;">
             <table style="width:100%">
@@ -33,7 +33,17 @@
                 <hline>
                 {% endfor %}
             </table>
+            <div>
+            {% if request.method == 'POST' %}
+            <div>
+              <form action="" method="POST">
+                {% csrf_token %}
+                <div>
+                {{ form.as_ul }}
+            </div>
+            {% else %}
             <button type="button" name="manage">Manage</button>
+            {% endif %}
         </div>
     </div>
     <hr>
