@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
@@ -102,7 +103,7 @@ class MTGCard(models.Model):
         blank = True,
     )
 
-    image = models.ImageField()
+    image = models.ImageField(upload_to = 'img/')
 
     class Meta:
         ordering = ['card_name']
@@ -110,6 +111,10 @@ class MTGCard(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return self.card_name
+
+    def get_absolute_url(self):
+        """Returns the url to access a detail record for this book."""
+        return reverse('mtgcard-detail', args=[str(self.pk)])
 
 
 class MTGSingle(models.Model):

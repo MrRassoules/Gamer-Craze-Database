@@ -8,12 +8,17 @@
   <ul>
     {% for mtgcard in mtgcard_list %}
     <section>
-        <h5>{{ mtgcard.card_name }} <font size="1">({{mtgcard.set}})</font></h5>
+        <a href="{{ mtgcard.get_absolute_url }}">{{ mtgcard.card_name }}</a>
+        <font size="1">({{mtgcard.set}}){{ mtgcard.image.url }}</font>
         <hr>
     </section>
     <div style="width: 100%; overflow: hidden;">
         <div style="width: 100px; float: left;">
+<<<<<<< Updated upstream
 <!--             <img src="{% static 'inventory/Acclaimed_Contender.png' %}" alt="{{mtgcard.SKU_ID}}"> -->
+=======
+            <img src="{% static 'inventory/Acclaimed_Contender.png' %}" alt="{{ mtgcard.SKU_ID }}" style="width:50px">
+>>>>>>> Stashed changes
         </div>
         <div style="margin-left: 100px;">
             <table style="width:100%">

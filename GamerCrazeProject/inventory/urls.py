@@ -8,3 +8,7 @@ urlpatterns = [
     path('mtgcards/', views.MTGCardListView.as_view(), name='mtgcards'),
     path('single/<str:pk>', views.MTGCardDetailView.as_view(), name='mtgcard-detail'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+if settings.DEBUG:
+        urlpatterns += static(settings.MEDIA_URL,
+                              document_root=settings.MEDIA_ROOT)

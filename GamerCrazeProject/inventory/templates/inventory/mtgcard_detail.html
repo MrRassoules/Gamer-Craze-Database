@@ -1,6 +1,52 @@
 {% extends "base_generic.html" %}
+{% load inventory_template_tags %}
+{% load static %}
 
 {% block content %}
-  <h1>Title: {{ book.title }}</h1>
-
+<div>
+    <div style="width: 100px; float: left">
+        <img src="{% static 'inventory/Acclaimed_Contender.png' %}" alt="{{ mtgcard.SKU_ID }}" style="width:50px">
+    </div>
+    <div style="margin-left: 100px;">
+        <h3>{{ mtgcard.card_name }}</h3>
+        <h6>{{ mtgcard.set }}</h6>
+        <hr>
+        <table>
+            <tr>
+                <td style="width:100px"><b>Rarity,#:</b></td>
+                <td>{{ mtgcard.rarity }}, {{ mtgcard.number }}</td>
+            </tr>
+            <tr>
+                <td style="width:100px"><b>Card Type:</b></td>
+                <td>{{ mtgcard.card_type }} - {{ mtgcard.card_subtype }}</td>
+            </tr>
+            <tr>
+                <td style="width:100px"><b>Description:</b></td>
+                <td style="width:300px">{{ mtgcard.rule_text }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<hr>
+<form action="/action_page.php">
+    <table>
+        <tr>
+            <th style="width:200px">Language</th>
+            <th style="width:200px">Condition</th>
+            <th style="width:100px">In stock</th>
+            <th style="width:100px">Price</th>
+            <th style="width:100px">Add to cart</th>
+        </tr>
+        {% for single in mtgcard|mtg_singles %}
+        <tr>
+            <td>{{ single.language }}</td>
+            <td>{{ single.condition }}</td>
+            <td>{{ single.qty }}</td>
+            <td>$ {{ single.price }}</td>
+            <td> <input type="text" name="{{ single.pk }}" style="width:70px"></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <input type="submit" value="Submit">
+</form>
 {% endblock %}
