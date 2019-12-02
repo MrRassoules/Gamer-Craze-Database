@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import generic
 from inventory.models import MTGSingle, MTGCard
-from inventory.forms import ManageCardsForm
+from inventory.forms import *
 
 def index(request):
     """View function for home page of site."""
@@ -19,18 +19,17 @@ def index(request):
 
 def mtgcards_list(request):
     """View function for the list of cards"""
-    
+
     # Check if theres a post request
     if request.method == 'POST':
-        
+
         # Create the form
         form = ManageCardsForm(request.POST)
-        
+
 
 class MTGCardListView(generic.ListView):
     model = MTGCard
-    
+
 
 class MTGCardDetailView(generic.DetailView):
     model = MTGCard
-
