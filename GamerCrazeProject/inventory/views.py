@@ -41,6 +41,29 @@ class AdvancedSearch(FormView):
 class MTGCardDetailView(generic.DetailView):
     model = MTGCard
 
+
+    def make_order_item(request, self):
+
+        # if this is a POST request we need to process the form data
+        if request.method == 'POST':
+
+            single = Single.objects.get(pk=self.pk)
+
+            # create a form instance and populate it with data from the request
+            form = OrderItemForm(initial={'order_id': 1, 'single_id': single.pk, 'qty': request.POST, 'total_price': (single.price * request.POST)})
+            # check whether it's valid:
+            if form.is_valid():
+                # process the data in form.cleaned_data as required
+                # ...
+                # redirect to a new URL:
+                form.save()
+
+        # if a GET (or any other method) we'll create a blank form
+        else:
+            form = OrderItemForm()
+
+        return render(request, 'MTGCard_detail.html', {'form': form})
+
 class MTGInventoryUpdate(UpdateView):
     model = MTGSingle
     fields = ['qty', 'price']

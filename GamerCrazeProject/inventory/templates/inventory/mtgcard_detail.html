@@ -44,10 +44,12 @@
             <td>{{ single.condition }}</td>
             <td>{{ single.qty }}</td>
             <td>$ {{ single.price }}</td>
-            <td> <input type="text" name="{{ single.pk }}" style="width:70px"></td>
+            <td>
+                <input type="text" name="{{ single.pk }}" style="width:70px">
+                <input type="submit" value="Add to Cart">
+            </td>
         </tr>
         {% endfor %}
     </table>
-    <input type="submit" value="Add to Cart">
 </form>
 {% endblock %}
