@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import generic, View
 from django.views.generic.edit import UpdateView, FormView
 from django.views.generic.base import TemplateView
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from inventory.models import MTGSingle, MTGCard
 from inventory.forms import SearchForm
 
@@ -26,16 +26,17 @@ class MTGCardListView(generic.ListView):
 
 class AdvancedSearch(FormView):
     model = MTGCard
-    fields = ['card_name', 'rule_text', 'CARD_TYPE_CHOICES', 'COLOR_CHOICES', 'RARITY_CHOICES']
     template_name = 'advanced_search.html'
     form_class = SearchForm
-    success_url = "/mtgcards/"
+    success_url = "/inventory/search/"
     
-    def form_valid(self, form):
-        context = {
-            'test': "test",
-        }
-        return super().form_valid(form)
+    def post(self, request):
+        if request.method == "POST":
+            model = self.model
+            form = self.form_class
+            stuff = form['card_name']
+            print (stuff)
+            return super().form_valid(form)
         
 
 class MTGCardDetailView(generic.DetailView):
