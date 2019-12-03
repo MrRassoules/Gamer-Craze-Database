@@ -7,6 +7,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('mtgcards/', views.MTGCardListView.as_view(), name='mtgcards'),
     path('single/<str:pk>', views.MTGCardDetailView.as_view(), name='mtgcard-detail'),
+    path('manage/<int:pk>', views.MTGInventoryUpdate.as_view(), name='mtg_single-update')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

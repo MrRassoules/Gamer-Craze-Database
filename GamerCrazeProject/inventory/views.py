@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views import generic
+from django.views.generic.edit import UpdateView
 from inventory.models import MTGSingle, MTGCard
 from inventory.forms import *
 
@@ -33,3 +34,8 @@ class MTGCardListView(generic.ListView):
 
 class MTGCardDetailView(generic.DetailView):
     model = MTGCard
+
+class MTGInventoryUpdate(UpdateView):
+    model = MTGSingle
+    fields = ['qty', 'price']
+    template_name = 'manage.html'
