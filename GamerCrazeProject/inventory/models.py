@@ -196,6 +196,12 @@ class Order(models.Model):
         max_length = 20
     )
 
+    total_price = models.DecimalField(
+        max_digits=7,
+        decimal_places=2,
+        validators=[validate_positive],
+    )
+
     def __str__(self):
         """String for representing the Model object."""
         return str(self.order_id)
@@ -215,6 +221,12 @@ class OrderItem(models.Model):
 
     qty = models.PositiveIntegerField(
         default = 0,
+    )
+
+    total_price = models.DecimalField(
+        max_digits=7,
+        decimal_places=2,
+        validators=[validate_positive],
     )
 
     def __str__(self):
