@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import generic
 from django.views.generic.edit import UpdateView
+from django.http import HttpResponseRedirect
 from inventory.models import MTGSingle, MTGCard
 from inventory.forms import *
 
@@ -18,18 +19,10 @@ def index(request):
     # Render the HTML template index.html with the data in the context variable
     return render(request, 'index.html', context=context)
 
-def mtgcards_list(request):
-    """View function for the list of cards"""
-
-    # Check if theres a post request
-    if request.method == 'POST':
-
-        # Create the form
-        form = ManageCardsForm(request.POST)
-
 
 class MTGCardListView(generic.ListView):
     model = MTGCard
+
 
 
 class MTGCardDetailView(generic.DetailView):
@@ -39,3 +32,14 @@ class MTGInventoryUpdate(UpdateView):
     model = MTGSingle
     fields = ['qty', 'price']
     template_name = 'manage.html'
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.save()
+        return redirect('mtgcards')
+
+
+    # def post(self, request):
+    #     self.qty = request.POST['qty'].save()
+    #     self.price = request.POST['price']
+    #     return HttpResponseRedirect('/inventory/mtgcards/')

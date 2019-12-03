@@ -30,7 +30,13 @@
                     <td>{{ single.condition }}</td>
                     <td>{{ single.qty }}</td>
                     <td>$ {{ single.price }}</td>
+                    <td>
+                        <a href="../../inventory/manage/{{ single.pk }}">
+                            <button type="button" name="manage">update</button>
+                        </a>
+                    </td>
                 </tr>
+
                 <hline>
                 {% endfor %}
             </table>
