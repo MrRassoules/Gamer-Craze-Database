@@ -37,9 +37,3 @@ class MTGInventoryUpdate(UpdateView):
         post = form.save(commit=False)
         post.save()
         return redirect('mtgcards')
-
-
-    # def post(self, request):
-    #     self.qty = request.POST['qty'].save()
-    #     self.price = request.POST['price']
-    #     return HttpResponseRedirect('/inventory/mtgcards/')
