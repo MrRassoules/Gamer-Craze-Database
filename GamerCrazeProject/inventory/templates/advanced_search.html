@@ -1,0 +1,9 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{% block content %}
+<h1> HI CHRIS </h1>
+<form method="post">{% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit" value="Send message">
+</form>
+{% endblock %}
