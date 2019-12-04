@@ -40,8 +40,10 @@ def AdvancedSearch(request):
     context = {
         "form": form,
         "card_name": card_name,
-        'rule_text': rule_text
+        'rule_text': rule_text,
+        'model': model.objects.all().filter(card_name__contains = card_name, rule_text__contains = rule_text)
     }
+
     return render(request, 'advanced_search.html', context)
 
 class MTGCardDetailView(generic.DetailView):

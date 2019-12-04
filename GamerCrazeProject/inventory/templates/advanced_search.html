@@ -6,6 +6,8 @@
 	{{ form.as_p }}
 	<input type="submit" value="Filter Results">
 </form>
-<p>{{ card_name }}</p>
-<p>{{ rule_text }}</p>
+
+{% for item in model %}
+	<p>{{ item }}</p>
+{% endfor %}
 {% endblock %}
