@@ -3,7 +3,10 @@
 {% load static %}
 
 {% block content %}
-  <h3>Inventory List</h3>
+  <h3 style="font-family: 'Bebas Neue', cursive;">Inventory List</h3>
+  <p><a href="{% url 'search' %}" style="color:maroon; text-decoration: none;">Advanced Search</a></p>
+{% endblock %}
+{% block list %}
   {% if mtgcard_list %}
   <ul>
     {% for mtgcard in mtgcard_list %}
@@ -54,6 +57,7 @@
         </div>
     </div>
     <hr>
+    <br />
     {% endfor %}
   </ul>
   {% endif %}

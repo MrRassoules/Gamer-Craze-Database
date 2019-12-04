@@ -3,16 +3,25 @@
 {% load inventory_template_tags %}
 
 {% block content %}
-<h1>Advanced Search</h1>
+<h1 style="font-family: 'Bebas Neue', cursive;">Advanced Search</h1>
 <form method="post">{% csrf_token %}
 	{{ form.as_p }}
 	<input type="submit" value="Filter Results">
 </form>
-
-{% for item in model %}
-	<div id="appendDiv">
-		<a href="{{ item.get_absolute_url }}">{{ item }}</a>
-	<img src="../../{{ item.image }}" alt="">
+{% endblock%}
+{% block search %}
+<div class="container" style="">
+	<div class="row">
+		{% for item in model %}
+		<div class="col-sm" id="cardItem">
+			<center>
+				<img src="../../{{ item.image }}" alt="" style="height: 100px">
+				<br />
+				<br />
+				<a href="{{ item.get_absolute_url }}" style="color: maroon; font-family: 'Bebas Neue', cursive;"><h3>{{ item }}<h3></a>
+			</center>
+		</div>
+		{% endfor %}
 	</div>
-{% endfor %}
+</div>
 {% endblock %}
