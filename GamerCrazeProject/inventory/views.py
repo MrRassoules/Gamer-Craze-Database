@@ -4,7 +4,7 @@ from django.views.generic.edit import UpdateView, FormView
 from django.views.generic.base import TemplateView
 from django.http import HttpResponseRedirect, HttpResponse
 from inventory.models import MTGSingle, MTGCard
-from inventory.forms import SearchForm
+from inventory.forms import *
 
 def index(request):
     """View function for home page of site."""
@@ -57,6 +57,29 @@ def AdvancedSearch(request):
     }
 
     return render(request, 'advanced_search.html', context)
+
+
+def MTGInventoryAdd(request, **kwargs):
+    model = MTGSingle
+    template_name = 'add_single.html'
+    form = MTGSingleForm(request.POST)
+    mtgcard = MTGCard.objects.get(pk=kwargs['pk'],)
+
+    if request.method == "POST":
+        if form.is_valid():
+            new_single = MTGSingle(
+                SKU_ID = MTGCard.objects.get(SKU_ID=kwargs['pk']),
+                condition = form.cleaned_data['condition'],
+                language = form.cleaned_data['language'],
+                qty = form.cleaned_data['qty'],
+                price = form.cleaned_data['price'],
+            )
+            new_single.save()
+            return redirect('mtgcards')
+        else:
+            form = MTGSingleForm()
+    return render(request, 'add_single.html', {'form': form})
+
 
 class MTGCardDetailView(generic.DetailView):
     model = MTGCard

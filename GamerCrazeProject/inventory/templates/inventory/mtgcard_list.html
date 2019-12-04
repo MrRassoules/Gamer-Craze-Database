@@ -13,11 +13,14 @@
     <section>
         <a href="{{ mtgcard.get_absolute_url }}">{{ mtgcard.card_name }}</a>
         <font size="1">({{mtgcard.set}}){{ mtgcard.image.url }}</font>
+        <a href="../../inventory/add_single/{{ mtgcard.pk }}">
+            <button type="button" name="add_single">+</button>
+        </a>
         <hr>
     </section>
     <div style="width: 100%; overflow: hidden;">
         <div style="width: 100px; float: left;">
-            <img src="{% static 'inventory/Acclaimed_Contender.png' %}" alt="{{ mtgcard.SKU_ID }}" style="width:50px">
+            <img src="../../{{ mtgcard.image }}" alt="{{ mtgcard.SKU_ID }}" style="width:50px">
         </div>
         <div style="margin-left: 100px;">
             <table style="width:100%">
@@ -51,8 +54,6 @@
                 <div>
                 {{ form.as_ul }}
             </div>
-            {% else %}
-            <button type="button" name="manage">Manage</button>
             {% endif %}
         </div>
     </div>
