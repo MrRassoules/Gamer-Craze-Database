@@ -31,12 +31,14 @@ def AdvancedSearch(request):
     card_name = ""
     rule_text = ""
     rarity = ""
+    color = ""
 
     if request.method == "POST":
         if form.is_valid():
             card_name = form.cleaned_data["card_name"]
             rule_text = form.cleaned_data["rule_text"]
             rarity = form.cleaned_data["rarity"]
+            color = form.cleaned_data["color"]
         else:
             form = SearchForm()
     context = {
@@ -47,10 +49,11 @@ def AdvancedSearch(request):
         'model': model.objects.all().filter(
             card_name__contains = card_name,
             rule_text__contains = rule_text,
-            rarity__contains = rarity
+            rarity__contains = rarity,
+            color__contains = color,
         ),
         'rarity': rarity,
-
+        'color': color,
     }
 
     return render(request, 'advanced_search.html', context)
