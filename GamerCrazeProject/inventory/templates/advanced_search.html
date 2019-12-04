@@ -4,6 +4,8 @@
 <h1>Advanced Search</h1>
 <form method="post">{% csrf_token %}
 	{{ form.as_p }}
-	<input type="submit" value="Send message">
+	<input type="submit" value="Filter Results">
 </form>
+<p>{{ card_name }}</p>
+<p>{{ rule_text }}</p>
 {% endblock %}

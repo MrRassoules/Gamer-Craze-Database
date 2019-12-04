@@ -24,20 +24,25 @@ def index(request):
 class MTGCardListView(generic.ListView):
     model = MTGCard
 
-class AdvancedSearch(FormView):
+def AdvancedSearch(request):
     model = MTGCard
     template_name = 'advanced_search.html'
-    form_class = SearchForm
-    success_url = "/inventory/search/"
-    
-    def post(self, request):
-        if request.method == "POST":
-            model = self.model
-            form = self.form_class
-            stuff = form['card_name']
-            print (stuff)
-            return super().form_valid(form)
-        
+    form = SearchForm(request.POST)
+    card_name = ""
+    rule_text = ""
+
+    if request.method == "POST":
+        if form.is_valid():
+            card_name = form.cleaned_data["card_name"]
+            rule_text = form.cleaned_data["rule_text"]
+        else:
+            form = SearchForm()
+    context = {
+        "form": form,
+        "card_name": card_name,
+        'rule_text': rule_text
+    }
+    return render(request, 'advanced_search.html', context)
 
 class MTGCardDetailView(generic.DetailView):
     model = MTGCard

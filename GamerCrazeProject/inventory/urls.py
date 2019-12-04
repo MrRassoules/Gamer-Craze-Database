@@ -8,7 +8,7 @@ urlpatterns = [
     path('mtgcards/', views.MTGCardListView.as_view(), name='mtgcards'),
     path('single/<str:pk>', views.MTGCardDetailView.as_view(), name='mtgcard-detail'),
     path('manage/<int:pk>', views.MTGInventoryUpdate.as_view(), name='mtg_single-update'),
-    path('search/', views.AdvancedSearch.as_view(), name='search')
+    path('search/', views.AdvancedSearch, name='search')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
