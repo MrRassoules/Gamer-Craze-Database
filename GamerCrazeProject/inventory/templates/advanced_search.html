@@ -1,5 +1,7 @@
 {% extends "base_generic.html" %}
 {% load static %}
+{% load inventory_template_tags %}
+
 {% block content %}
 <h1>Advanced Search</h1>
 <form method="post">{% csrf_token %}
@@ -8,6 +10,9 @@
 </form>
 
 {% for item in model %}
-	<p>{{ item }}</p>
+	<div id="appendDiv">
+		<a href="{{ item.get_absolute_url }}">{{ item }}</a>
+	<img src="../../{{ item.image }}" alt="">
+	</div>
 {% endfor %}
 {% endblock %}

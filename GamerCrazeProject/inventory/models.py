@@ -103,7 +103,9 @@ class MTGCard(models.Model):
         blank = True,
     )
 
-    image = models.ImageField(upload_to = 'img/')
+    image = models.CharField(
+        max_length = 100,
+        blank = True,)
 
     class Meta:
         ordering = ['card_name']

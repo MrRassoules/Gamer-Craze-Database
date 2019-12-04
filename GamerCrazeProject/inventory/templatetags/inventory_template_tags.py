@@ -10,3 +10,8 @@ def mtg_singles(MTGCard):
     for mtg_single in mtg_singles:
         singles.append(mtg_single)
     return singles
+
+@register.filter(name='parse_url')
+def parse_url(url):
+    str = url.split("static/", 1)
+    return str[1]
